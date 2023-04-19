@@ -1,0 +1,15 @@
+C:\Users\wsancheg\source\repos\UCOCompilador12023\UCOCompilador12023\bin\Debug\UCOCompilador12023.exe.config
+C:\Users\wsancheg\source\repos\UCOCompilador12023\UCOCompilador12023\bin\Debug\UCOCompilador12023.exe
+C:\Users\wsancheg\source\repos\UCOCompilador12023\UCOCompilador12023\bin\Debug\UCOCompilador12023.pdb
+C:\Users\wsancheg\source\repos\UCOCompilador12023\UCOCompilador12023\obj\Debug\UCOCompilador12023.csproj.AssemblyReference.cache
+C:\Users\wsancheg\source\repos\UCOCompilador12023\UCOCompilador12023\obj\Debug\UCOCompilador12023.csproj.CoreCompileInputs.cache
+C:\Users\wsancheg\source\repos\UCOCompilador12023\UCOCompilador12023\obj\Debug\UCOCompilador12023.exe
+C:\Users\wsancheg\source\repos\UCOCompilador12023\UCOCompilador12023\obj\Debug\UCOCompilador12023.pdb
+C:\Users\jeroe\Desktop\Codigo\Proyectos Universidad\Compiladores\UCOCompilador12023\UCOCompilador12023\obj\Debug\UCOCompilador12023.csproj.AssemblyReference.cache
+C:\Users\jeroe\Desktop\Codigo\Proyectos Universidad\Compiladores\UCOCompilador12023\UCOCompilador12023\obj\Debug\UCOCompilador12023.csproj.SuggestedBindingRedirects.cache
+C:\Users\jeroe\Desktop\Codigo\Proyectos Universidad\Compiladores\UCOCompilador12023\UCOCompilador12023\obj\Debug\UCOCompilador12023.csproj.CoreCompileInputs.cache
+C:\Users\jeroe\Desktop\Codigo\Proyectos Universidad\Compiladores\UCOCompilador12023\UCOCompilador12023\obj\Debug\UCOCompilador12023.exe
+C:\Users\jeroe\Desktop\Codigo\Proyectos Universidad\Compiladores\UCOCompilador12023\UCOCompilador12023\obj\Debug\UCOCompilador12023.pdb
+C:\Users\jeroe\Desktop\Codigo\Proyectos Universidad\Compiladores\UCOCompilador12023\UCOCompilador12023\bin\Debug\UCOCompilador12023.exe.config
+C:\Users\jeroe\Desktop\Codigo\Proyectos Universidad\Compiladores\UCOCompilador12023\UCOCompilador12023\bin\Debug\UCOCompilador12023.exe
+C:\Users\jeroe\Desktop\Codigo\Proyectos Universidad\Compiladores\UCOCompilador12023\UCOCompilador12023\bin\Debug\UCOCompilador12023.pdb
