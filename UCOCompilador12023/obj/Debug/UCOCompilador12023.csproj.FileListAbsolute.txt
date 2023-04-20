@@ -13,3 +13,11 @@ C:\Users\jeroe\Desktop\Codigo\Proyectos Universidad\Compiladores\UCOCompilador12
 C:\Users\jeroe\Desktop\Codigo\Proyectos Universidad\Compiladores\UCOCompilador12023\UCOCompilador12023\bin\Debug\UCOCompilador12023.exe.config
 C:\Users\jeroe\Desktop\Codigo\Proyectos Universidad\Compiladores\UCOCompilador12023\UCOCompilador12023\bin\Debug\UCOCompilador12023.exe
 C:\Users\jeroe\Desktop\Codigo\Proyectos Universidad\Compiladores\UCOCompilador12023\UCOCompilador12023\bin\Debug\UCOCompilador12023.pdb
+C:\ProyectosProgramación\CompiladorClase\UCOCompilador12023\bin\Debug\UCOCompilador12023.exe.config
+C:\ProyectosProgramación\CompiladorClase\UCOCompilador12023\bin\Debug\UCOCompilador12023.exe
+C:\ProyectosProgramación\CompiladorClase\UCOCompilador12023\bin\Debug\UCOCompilador12023.pdb
+C:\ProyectosProgramación\CompiladorClase\UCOCompilador12023\obj\Debug\UCOCompilador12023.csproj.AssemblyReference.cache
+C:\ProyectosProgramación\CompiladorClase\UCOCompilador12023\obj\Debug\UCOCompilador12023.csproj.SuggestedBindingRedirects.cache
+C:\ProyectosProgramación\CompiladorClase\UCOCompilador12023\obj\Debug\UCOCompilador12023.csproj.CoreCompileInputs.cache
+C:\ProyectosProgramación\CompiladorClase\UCOCompilador12023\obj\Debug\UCOCompilador12023.exe
+C:\ProyectosProgramación\CompiladorClase\UCOCompilador12023\obj\Debug\UCOCompilador12023.pdb

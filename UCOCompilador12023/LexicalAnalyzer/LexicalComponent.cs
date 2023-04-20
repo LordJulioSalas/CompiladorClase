@@ -12,35 +12,27 @@ namespace UCOCompilador12023.LexicalAnalyzer
         private int InitialPosition;
         private int FinalPosition;
         private Category Category;
-        private ComponentType ComponentType;
         private string Lexeme;
+        private ComponentType Type { get; set; }
 
-        public LexicalComponent(int lineNumber, int initialPosition, int finalPosition, Category category, string lexeme, ComponentType componentType)
+        public LexicalComponent(int lineNumber, int initialPosition, int finalPosition, Category category, string lexeme, ComponentType type)
         {
             LineNumber = lineNumber;
             InitialPosition = initialPosition;
             FinalPosition = finalPosition;
             Category = category;
             Lexeme = lexeme;
-            ComponentType = componentType;  
+            Type = type;
         }
 
-        public LexicalComponent(int lineNumber, int initialPosition, int finalPosition, Category category, string lexeme)
+        public static LexicalComponent CreateNormalComponent(int lineNumber, int initialPosition, int finalPosition, Category category, string lexeme, ComponentType type)
         {
-            LineNumber = lineNumber;
-            InitialPosition = initialPosition;
-            FinalPosition = finalPosition;
-            Category = category;
-            Lexeme = lexeme;
+            return new LexicalComponent(lineNumber, initialPosition, finalPosition, category, lexeme, ComponentType.NORMAL);
         }
 
-        public static LexicalComponent Create(int lineNumber, int initialPosition, int finalPosition, Category category, string lexeme)
+        public static LexicalComponent CreateDummyComponent(int lineNumber, int initialPosition, int finalPosition, Category category, string lexeme, ComponentType type)
         {
-            return new LexicalComponent(lineNumber, initialPosition, finalPosition, category, lexeme);
-        }
-        public static LexicalComponent Create(int lineNumber, int initialPosition, int finalPosition, Category category, string lexeme, ComponentType componentType)
-        {
-            return new LexicalComponent(lineNumber, initialPosition, finalPosition, category, lexeme, componentType);
+            return new LexicalComponent(lineNumber, initialPosition, finalPosition, category, lexeme, ComponentType.DUMMY);
         }
 
         public void SetLineNumber(int lineNumber)
@@ -95,23 +87,15 @@ namespace UCOCompilador12023.LexicalAnalyzer
 
         public string ToString()
         {
-            StringBuilder sb=new StringBuilder();
-            sb.Append("Categoria: ").Append(GetCategory()).Append("\n");
+            StringBuilder sb = new StringBuilder();
+            sb.Append("Categoría: ").Append(Type).Append("\n");
+            sb.Append("Categoría: ").Append(GetCategory()).Append("\n");
             sb.Append("Lexema: ").Append(GetLexeme()).Append("\n");
-            sb.Append("Numero de linea: ").Append(GetLineNumber()).Append("\n");
-            sb.Append("Posicion inicial en la linea: ").Append(GetInitialPosition()).Append("\n");
-            sb.Append("Posicion final en la linea: ").Append(GetFinalPosition()).Append("\n");
+            sb.Append("Número de línea: ").Append(GetLineNumber()).Append("\n");
+            sb.Append("Posición inicial de la línea: ").Append(GetInitialPosition()).Append("\n");
+            sb.Append("Posición final de la línea: ").Append(GetFinalPosition()).Append("\n");
 
             return sb.ToString();
-        }
-
-        public static  LexicalComponent CreateNormalComponent(int lineNumber, int initialPosition, int finalPosition, Category category, string lexeme)
-        {
-            return LexicalComponent.Create(lineNumber, initialPosition, finalPosition, category, lexeme, ComponentType.NORMAL);
-        }
-        public static LexicalComponent CreateDummy(int lineNumber, int initialPosition, int finalPosition, Category category, string lexeme)
-        {
-            return LexicalComponent.Create(lineNumber, initialPosition, finalPosition, category, lexeme, ComponentType.DUMMY);
         }
     }
 }
