@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using UCOCompilador12023.DataCache;
@@ -54,37 +53,43 @@ namespace UCOCompilador12023.LexicalAnalyzer
         {
             Restart();
 
-
             while (INSTANCE.Continue)
             {
                 if (INSTANCE.CurrentState == 0)
                 {
                     ProcessState0();
                 }
-
-                else if(INSTANCE.CurrentState == 1) {
-                ProcessState1();
+                if (INSTANCE.CurrentState == 1)
+                {
+                    ProcessState1();
                 }
-                else if (INSTANCE.CurrentState == 2) { 
+                if (INSTANCE.CurrentState == 2)
+                {
+                    ProcessState2();
                 }
-                else if (INSTANCE.CurrentState == 3) { }
-                else if (INSTANCE.CurrentState == 4) { }
-                else if (INSTANCE.CurrentState == 5) { }
-                else if (INSTANCE.CurrentState == 6) { }
-                else if (INSTANCE.CurrentState == 7) { }
-                else if (INSTANCE.CurrentState == 8) { }
-                else if (INSTANCE.CurrentState == 9) { }
-                else if (INSTANCE.CurrentState == 10) { }
-                else if (INSTANCE.CurrentState == 11) { }
-                else if (INSTANCE.CurrentState == 12) { }
-                else if (INSTANCE.CurrentState == 13) {
+                if (INSTANCE.CurrentState == 3)
+                {
+                    ProcessState3();
+                }
+                if (INSTANCE.CurrentState == 12)
+                {
+                    ProcessState12();
+                }
+                if (INSTANCE.CurrentState == 13)
+                {
                     ProcessState13();
-                        }
-                else if (INSTANCE.CurrentState == 14) { 
-                ProcessState14();
                 }
-                else if (INSTANCE.CurrentState == 15) { 
-                ProcessState15();   
+                if (INSTANCE.CurrentState == 14)
+                {
+                    ProcessState14();
+                }
+                if (INSTANCE.CurrentState == 15)
+                {
+                    ProcessState15();
+                }
+                if (INSTANCE.CurrentState == 17)
+                {
+                    ProcessState17();
                 }
             }
 
@@ -110,95 +115,126 @@ namespace UCOCompilador12023.LexicalAnalyzer
                 Concanate();
                 INSTANCE.CurrentState = 5;
             }
-            else if (IsEndOfLine()) {
-                Concanate();
+            else if (IsEndOfLine())
+            {
                 INSTANCE.CurrentState = 13;
             }
-            else if (isEndOfFile())
+            else if (IsEndOfFile())
             {
                 INSTANCE.CurrentState = 12;
             }
+
 
         }
 
         private static void ProcessState1()
         {
             Scanner.ReadNextCharacter();
+
             if (IsDigit())
             {
                 Concanate();
+                INSTANCE.CurrentState = 1;
             }
-            //else if ()
-            //{
-            //}
-
+            else if (IsComma())
+            {
+                Concanate();
+                INSTANCE.CurrentState = 2;
+            }
             else
             {
+                INSTANCE.CurrentState = 14;
+            }
+        }
 
+        private static void ProcessState2()
+        {
+            Scanner.ReadNextCharacter();
+
+            if (IsDigit())
+            {
+                Concanate();
+                INSTANCE.CurrentState = 3;
+            }
+            else
+            {
+                INSTANCE.CurrentState = 17;
             }
         }
 
         private static void ProcessState3()
         {
+            Scanner.ReadNextCharacter();
+
+            if (IsDigit())
+            {
+                Concanate();
+                INSTANCE.CurrentState = 3;
+            }
+            else
+            {
+                INSTANCE.CurrentState = 15;
+            }
         }
 
         private static void ProcessState12()
         {
-            CreateComponentWithoutReturningIndex(Category.EOF);
-            Restart();
+            CreateComponentWithouReturnIndex(Category.EOF, ComponentType.NORMAL);
         }
+
         private static void ProcessState13()
         {
             Scanner.LoadNextLine();
             Restart();
         }
+
         private static void ProcessState14()
         {
-            CreateComponentReturningIndex(Category.ENTERO);
+            CreateComponentReturningIndex(Category.ENTERO, ComponentType.NORMAL);
         }
 
         private static void ProcessState15()
         {
-            CreateComponentReturningIndex(Category.DECIMAL);
+            CreateComponentReturningIndex(Category.DECIMAL, ComponentType.NORMAL);
         }
-
         private static void ProcessState17()
         {
             Concanate("0");
-            CreateComponentReturningIndex(Category.DECIMAL);
+            CreateComponentReturningIndex(Category.DECIMAL, ComponentType.DUMMY);
         }
-
-
 
 
         private static void CreateComponent(Category category, ComponentType type)
         {
-            int lineNumber=Scanner.GetCurrentNumberLine();
-            int finalPosition=Scanner.GetCurrentIndex()-1;
+            int lineNumber = Scanner.GetCurrentNumberLine();
             int initialPosition = Scanner.GetCurrentIndex() - INSTANCE.Lexeme.Length;
+            int finalPosition = Scanner.GetCurrentIndex() - 1;
 
             if (ComponentType.NORMAL.Equals(type))
             {
-                INSTANCE.Component = LexicalComponent.CreateNormalComponent(lineNumber, initialPosition, finalPosition, category, INSTANCE.Lexeme);
+                INSTANCE.Component = LexicalComponent.CreateNormalComponent(lineNumber, initialPosition, finalPosition, category, INSTANCE.Lexeme, ComponentType.NORMAL);
             }
             else if (ComponentType.DUMMY.Equals(type))
             {
-                INSTANCE.Component = LexicalComponent.CreateDummy(lineNumber, initialPosition, finalPosition, category, INSTANCE.Lexeme);
+                INSTANCE.Component = LexicalComponent.CreateDummyComponent(lineNumber, initialPosition, finalPosition, category, INSTANCE.Lexeme, ComponentType.DUMMY);
             }
-
-            INSTANCE.Component = LexicalComponent.Create(lineNumber,initialPosition,finalPosition,category,INSTANCE.Lexeme);
         }
-        private static void CreateComponentWithoutReturningIndex(Category category)
+
+        private static void CreateComponentWithouReturnIndex(Category category, ComponentType type)
         {
             INSTANCE.Continue = false;
-            CreateComponent(category, ComponentType.NORMAL);
+
+            CreateComponent(category, type);
         }
-        private static void CreateComponentReturningIndex(Category category)
+
+        private static void CreateComponentReturningIndex(Category category, ComponentType type)
         {
             Scanner.ReturnIndex();
             INSTANCE.Continue = false;
-            CreateComponent(category, ComponentType.NORMAL);
+
+            CreateComponent(category, type);
         }
+
         private static bool IsLetter()
         {
             return Char.IsLetter(Scanner.GetCurrentCharacter().ToCharArray()[0]);
@@ -224,12 +260,17 @@ namespace UCOCompilador12023.LexicalAnalyzer
             return "+".Equals(Scanner.GetCurrentCharacter());
         }
 
-        private static bool IsEndOfLine()
+        private static bool IsComma()
         {
-            return "@FL@".Equals(Scanner.GetCurrentCharacter());    
+            return ",".Equals(Scanner.GetCurrentCharacter());
         }
 
-        private static bool isEndOfFile()
+        private static bool IsEndOfLine()
+        {
+            return "@FL@".Equals(Scanner.GetCurrentCharacter());
+        }
+
+        private static bool IsEndOfFile()
         {
             return "@EOF@".Equals(Scanner.GetCurrentCharacter());
         }
