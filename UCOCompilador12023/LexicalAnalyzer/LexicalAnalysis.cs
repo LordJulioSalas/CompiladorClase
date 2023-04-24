@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -87,9 +88,49 @@ namespace UCOCompilador12023.LexicalAnalyzer
                 {
                     ProcessState15();
                 }
+                if (INSTANCE.CurrentState == 16)
+                {
+                    ProcessState16();
+                }
                 if (INSTANCE.CurrentState == 17)
                 {
                     ProcessState17();
+                }
+                if (INSTANCE.CurrentState == 18)
+                {
+                    ProcessState18();
+                }
+                if (INSTANCE.CurrentState == 19)
+                {
+                    ProcessState19();
+                }
+                if (INSTANCE.CurrentState == 20)
+                {
+                    ProcessState20();
+                }
+                if (INSTANCE.CurrentState == 21)
+                {
+                    ProcessState21();
+                }
+                if (INSTANCE.CurrentState == 22)
+                {
+                    ProcessState22();
+                }
+                if (INSTANCE.CurrentState == 23)
+                {
+                    ProcessState23();
+                }
+                if (INSTANCE.CurrentState == 24)
+                {
+                    ProcessState24();
+                }
+                if (INSTANCE.CurrentState == 25)
+                {
+                    ProcessState25();
+                }
+                if (INSTANCE.CurrentState == 26)
+                {
+                    ProcessState26();
                 }
             }
 
@@ -197,13 +238,88 @@ namespace UCOCompilador12023.LexicalAnalyzer
         {
             CreateComponentReturningIndex(Category.DECIMAL, ComponentType.NORMAL);
         }
+        private static void ProcessState16()
+        {
+            CreateComponentReturningIndex(Category.IDENTIFICADOR, ComponentType.NORMAL);
+        }
         private static void ProcessState17()
         {
             Concanate("0");
             CreateComponentReturningIndex(Category.DECIMAL, ComponentType.DUMMY);
         }
 
+        private static void ProcessState18()
+        {
+            //Error;
+        }
 
+        private static void ProcessState19()
+        {
+            CreateComponentWithouReturnIndex(Category.IGUAL_QUE, ComponentType.NORMAL);
+        }
+
+        private static void ProcessState20()
+        {
+            Scanner.ReadNextCharacter();
+            if (IsEqualTo(">")) {
+            Concanate();
+            INSTANCE.CurrentState = 23;
+            }
+            else if (IsEqualTo("=")) {
+            Concanate();
+            INSTANCE.CurrentState = 24;
+            }
+            else { 
+            INSTANCE.CurrentState = 25;
+            }
+        }
+        private static void ProcessState21()
+        {
+            Scanner.ReadNextCharacter();
+            if (IsEqualTo("="))
+            {
+                Concanate();
+                INSTANCE.CurrentState = 26;
+            }
+            else
+            {
+                INSTANCE.CurrentState = 27;
+            }
+        }
+
+        private static void ProcessState22()
+        {
+            Scanner.ReadNextCharacter();
+            if (IsEqualTo("="))
+            {
+                Concanate();
+                INSTANCE.CurrentState = 28;
+            }
+            else
+            {
+                INSTANCE.CurrentState = 29;
+            }
+        }
+
+        private static void ProcessState23()
+        {
+           CreateComponentWithouReturnIndex(Category.DIFERENTE_QUE, ComponentType.NORMAL);  
+        }
+
+        private static void ProcessState24()
+        {
+            CreateComponentWithouReturnIndex(Category.MENOR_IGUAL_QUE, ComponentType.NORMAL);
+        }
+
+        private static void ProcessState25()
+        {
+            CreateComponentReturningIndex(Category.MENOR_QUE, ComponentType.NORMAL);
+        }
+
+        private static void ProcessState26()
+        {
+            CreateComponentWithouReturnIndex(Category.MAYOR_IGUAL_QUE, ComponentType.NORMAL);
+        }
         private static void CreateComponent(Category category, ComponentType type)
         {
             int lineNumber = Scanner.GetCurrentNumberLine();
@@ -265,6 +381,9 @@ namespace UCOCompilador12023.LexicalAnalyzer
             return ",".Equals(Scanner.GetCurrentCharacter());
         }
 
+        private static bool IsEqualTo(String s) { 
+        return s.Equals(Scanner.GetCurrentCharacter()); 
+        }
         private static bool IsEndOfLine()
         {
             return "@FL@".Equals(Scanner.GetCurrentCharacter());
