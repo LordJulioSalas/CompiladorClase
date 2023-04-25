@@ -239,12 +239,10 @@ namespace UCOCompilador12023.LexicalAnalyzer
         {
             return Char.IsLetter(Scanner.GetCurrentCharacter().ToCharArray()[0]);
         }
-
         private static bool IsDigit()
         {
             return Char.IsDigit(Scanner.GetCurrentCharacter().ToCharArray()[0]);
         }
-
         private static bool IsCurrency()
         {
             return "$".Equals(Scanner.GetCurrentCharacter());
