@@ -34,13 +34,13 @@ namespace UCOCompilador12023.ErrorManager
             Category = category;
             Lexeme = lexeme;
         }
-        public Error CreateStopperLexicalError(int lineNumber, int initialPosition, int finalPosition, string fail, string cause, string solution, ErrorLevel level, Category category, string lexeme)
+        public static Error CreateStopperLexicalError(int lineNumber, int initialPosition, int finalPosition, string fail, string cause, string solution, Category category, string lexeme)
         {
-            return new Error(lineNumber,initialPosition,finalPosition, fail, cause, solution, level,ErrorType.STOPPER, category, lexeme);
+            return new Error(lineNumber,initialPosition,finalPosition, fail, cause, solution, ErrorLevel.LEXICO, ErrorType.STOPPER, category, lexeme);
         }
-        public Error CreateNotStopperLexicalError(int lineNumber, int initialPosition, int finalPosition, string fail, string cause, string solution, ErrorLevel level, ErrorType type, Category category, string lexeme)
+        public static Error CreateNotStopperLexicalError(int lineNumber, int initialPosition, int finalPosition, string fail, string cause, string solution, Category category, string lexeme)
         {
-            return new Error(lineNumber, initialPosition, finalPosition, fail, cause, solution, level, ErrorType.CONTROLABLE, category, lexeme);
+            return new Error(lineNumber, initialPosition, finalPosition, fail, cause, solution, ErrorLevel.LEXICO, ErrorType.CONTROLABLE, category, lexeme);
         }
 
         public string ToString()

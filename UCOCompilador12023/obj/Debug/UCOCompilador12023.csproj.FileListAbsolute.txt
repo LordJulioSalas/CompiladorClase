@@ -21,3 +21,11 @@ C:\ProyectosProgramación\CompiladorClase\UCOCompilador12023\obj\Debug\UCOCompil
 C:\ProyectosProgramación\CompiladorClase\UCOCompilador12023\obj\Debug\UCOCompilador12023.csproj.CoreCompileInputs.cache
 C:\ProyectosProgramación\CompiladorClase\UCOCompilador12023\obj\Debug\UCOCompilador12023.exe
 C:\ProyectosProgramación\CompiladorClase\UCOCompilador12023\obj\Debug\UCOCompilador12023.pdb
+C:\u\CompiladorClase\UCOCompilador12023\bin\Debug\UCOCompilador12023.exe.config
+C:\u\CompiladorClase\UCOCompilador12023\bin\Debug\UCOCompilador12023.exe
+C:\u\CompiladorClase\UCOCompilador12023\bin\Debug\UCOCompilador12023.pdb
+C:\u\CompiladorClase\UCOCompilador12023\obj\Debug\UCOCompilador12023.csproj.AssemblyReference.cache
+C:\u\CompiladorClase\UCOCompilador12023\obj\Debug\UCOCompilador12023.csproj.SuggestedBindingRedirects.cache
+C:\u\CompiladorClase\UCOCompilador12023\obj\Debug\UCOCompilador12023.csproj.CoreCompileInputs.cache
+C:\u\CompiladorClase\UCOCompilador12023\obj\Debug\UCOCompilador12023.exe
+C:\u\CompiladorClase\UCOCompilador12023\obj\Debug\UCOCompilador12023.pdb

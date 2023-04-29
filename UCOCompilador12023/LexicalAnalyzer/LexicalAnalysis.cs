@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UCOCompilador12023.DataCache;
+using UCOCompilador12023.ErrorManager;
 
 namespace UCOCompilador12023.LexicalAnalyzer
 {
@@ -71,6 +72,38 @@ namespace UCOCompilador12023.LexicalAnalyzer
                 {
                     ProcessState3();
                 }
+                if (INSTANCE.CurrentState == 4)
+                {
+                    ProcessState4();
+                }
+                if (INSTANCE.CurrentState == 5)
+                {
+                    ProcessState5();
+                }
+                if (INSTANCE.CurrentState == 6)
+                {
+                    ProcessState6();
+                }
+                if (INSTANCE.CurrentState == 7)
+                {
+                    ProcessState7();
+                }
+                if (INSTANCE.CurrentState == 8)
+                {
+                    ProcessState8();
+                }
+                if (INSTANCE.CurrentState == 9)
+                {
+                    ProcessState9();
+                }
+                if (INSTANCE.CurrentState == 10)
+                {
+                    ProcessState10();
+                }
+                if (INSTANCE.CurrentState == 11)
+                {
+                    ProcessState11();
+                }
                 if (INSTANCE.CurrentState == 12)
                 {
                     ProcessState12();
@@ -86,6 +119,10 @@ namespace UCOCompilador12023.LexicalAnalyzer
                 if (INSTANCE.CurrentState == 15)
                 {
                     ProcessState15();
+                }
+                if (INSTANCE.CurrentState == 16)
+                {
+                    //ProcessState16();
                 }
                 if (INSTANCE.CurrentState == 17)
                 {
@@ -123,8 +160,51 @@ namespace UCOCompilador12023.LexicalAnalyzer
             {
                 INSTANCE.CurrentState = 12;
             }
-
-
+            else if (IsMinus())
+            {
+                INSTANCE.CurrentState = 6;
+            }
+            else if (IsMultiplication())
+            {
+                INSTANCE.CurrentState = 7;
+            }
+            else if (IsSlash())
+            {
+                INSTANCE.CurrentState = 8;
+            }
+            else if (IsModule())
+            {
+                INSTANCE.CurrentState = 9;
+            }
+            else if (IsLeftParenthesis())
+            {
+                INSTANCE.CurrentState = 10;
+            }
+            else if (IsRightParenthesis())
+            {
+                INSTANCE.CurrentState = 11;
+            }
+            else if (IsEqual())
+            {
+                INSTANCE.CurrentState = 19;
+            }
+            else if (IsColon())
+            {
+                INSTANCE.CurrentState = 22;
+            }
+            else if (IsLessThan())
+            {
+                INSTANCE.CurrentState = 20;
+            }
+            else if (IsGreaterThan())
+            {
+                INSTANCE.CurrentState = 21;
+            }
+            else if (IsExclamationMark())
+            {
+                INSTANCE.CurrentState = 30;
+            }
+            else { INSTANCE.CurrentState = 18; }
         }
 
         private static void ProcessState1()
@@ -177,11 +257,70 @@ namespace UCOCompilador12023.LexicalAnalyzer
             }
         }
 
+        private static void ProcessState4()
+        {
+            Scanner.ReadNextCharacter();
+
+            if (IsLetter() || IsCurrency() || IsUnderline() || IsDigit())
+            {
+                Concanate();
+                INSTANCE.CurrentState = 4;
+            }
+            else
+            {
+                INSTANCE.CurrentState = 16;
+            }
+        }
+
+        private static void ProcessState5()
+        {
+            CreateComponentReturningIndex(Category.SUMA, ComponentType.NORMAL);
+        }
+
+        private static void ProcessState6()
+        {
+            CreateComponentReturningIndex(Category.RESTA, ComponentType.NORMAL);
+        }
+        private static void ProcessState7()
+        {
+            CreateComponentReturningIndex(Category.MULTIPLICACION, ComponentType.NORMAL);
+        }
+        private static void ProcessState8()
+        {
+            Scanner.ReadNextCharacter();
+
+            if (IsMultiplication())
+            {
+                Concanate();
+                INSTANCE.CurrentState = 34;
+            }
+            else if (IsSlash())            
+            {
+                Concanate();
+                INSTANCE.CurrentState = 36;
+            }
+            else
+            {
+                INSTANCE.CurrentState = 33;
+            }
+        }
+        private static void ProcessState9()
+        {
+            CreateComponentReturningIndex(Category.MODULO, ComponentType.NORMAL);
+        }
+
+        private static void ProcessState10()
+        {
+            CreateComponentReturningIndex(Category.PARENTESIS_QUE_ABRE, ComponentType.NORMAL);
+        }
+        private static void ProcessState11()
+        {
+            CreateComponentReturningIndex(Category.PARENTESIS_QUE_CIERRA, ComponentType.NORMAL);
+        }
         private static void ProcessState12()
         {
             CreateComponentWithouReturnIndex(Category.EOF, ComponentType.NORMAL);
         }
-
         private static void ProcessState13()
         {
             Scanner.LoadNextLine();
@@ -199,8 +338,26 @@ namespace UCOCompilador12023.LexicalAnalyzer
         }
         private static void ProcessState17()
         {
-            Concanate("0");
+            
             CreateComponentReturningIndex(Category.DECIMAL, ComponentType.DUMMY);
+            string fail = "Numero decimal no valido";
+            string cause = "Se ha recibido un caracter que no corresponde a un digito...";
+            string solution = "Asegurese de que luego del separador decimal continue un digito..";
+            CreateLexicalError(ErrorType.CONTROLABLE, fail, cause, solution, Category.DECIMAL, INSTANCE.Lexeme + Scanner.GetCurrentCharacter());
+            Concanate("0");
+
+            CreateComponentReturningIndex(Category.DECIMAL, ComponentType.DUMMY);
+        }
+
+        private static void ProcessState18()
+        {
+
+            CreateComponentReturningIndex(Category.DECIMAL, ComponentType.DUMMY);
+            string fail = "Compnenete lexico no valido";
+            string cause = "Se ha recibido un simbolo desconocido por el lenguaje....";
+            string solution = "Asegurese de que solo existan simbolos aceptados por el lenguaje...";
+            CreateLexicalError(ErrorType.STOPPER, fail, cause, solution, Category.GENERAL, Scanner.GetCurrentCharacter());
+            
         }
 
 
@@ -218,6 +375,33 @@ namespace UCOCompilador12023.LexicalAnalyzer
             {
                 INSTANCE.Component = LexicalComponent.CreateDummyComponent(lineNumber, initialPosition, finalPosition, category, INSTANCE.Lexeme, ComponentType.DUMMY);
             }
+        }
+
+        private static void CreateLexicalError(ErrorType errorType, string fail, string cause, string solution, Category expecteCategory, string lexeme)
+        {
+            int lineNumber = Scanner.GetCurrentNumberLine();
+            
+            Error error;
+
+            if (ErrorType.STOPPER.Equals(errorType))
+            {
+                int initialPosition = Scanner.GetCurrentIndex() - 1;
+                int finalPosition = Scanner.GetCurrentIndex() - 1;
+                error = Error.CreateStopperLexicalError(lineNumber, initialPosition, finalPosition, fail, cause, solution, expecteCategory, lexeme);
+
+                ErrorManagment.Agregar(error);
+                throw new Exception("Se ha presentado un error tipo STOPPER durante el análisis lexico. No es posible continuar con el proceso de compílación gasta que el error haya solucionado. Por favor verifique la consola de errores para tener más detalles del problema que se ha presentado....");
+            }
+            else if (ErrorType.CONTROLABLE.Equals(errorType))
+            {
+                int initialPosition = Scanner.GetCurrentIndex() - INSTANCE.Lexeme.Length;
+                int finalPosition = Scanner.GetCurrentIndex() - 1;
+
+                error = Error.CreateStopperLexicalError(lineNumber, initialPosition, finalPosition, fail, cause, solution, expecteCategory, lexeme);
+                ErrorManagment.Agregar(error);
+            }
+
+            
         }
 
         private static void CreateComponentWithouReturnIndex(Category category, ComponentType type)
@@ -257,12 +441,56 @@ namespace UCOCompilador12023.LexicalAnalyzer
         {
             return "+".Equals(Scanner.GetCurrentCharacter());
         }
-
+        private static bool IsMinus()
+        {
+            return "-".Equals(Scanner.GetCurrentCharacter());
+        }
+        private static bool IsMultiplication()
+        {
+            return "*".Equals(Scanner.GetCurrentCharacter());
+        }
         private static bool IsComma()
         {
             return ",".Equals(Scanner.GetCurrentCharacter());
         }
+        private static bool IsSlash()
+        {
+            return "/".Equals(Scanner.GetCurrentCharacter());
+        }
+        private static bool IsModule()
+        {
+            return "%".Equals(Scanner.GetCurrentCharacter());
+        }
+        private static bool IsLeftParenthesis()
+        {
+            return "(".Equals(Scanner.GetCurrentCharacter());
+        }
 
+        private static bool IsRightParenthesis()
+        {
+            return ")".Equals(Scanner.GetCurrentCharacter());
+        }
+        private static bool IsEqual()
+        {
+            return "=".Equals(Scanner.GetCurrentCharacter());
+        }
+        private static bool IsColon()
+        {
+            return ":".Equals(Scanner.GetCurrentCharacter());
+        }
+        private static bool IsGreaterThan()
+        {
+            return ">".Equals(Scanner.GetCurrentCharacter());
+        }
+
+        private static bool IsLessThan()
+        {
+            return "<".Equals(Scanner.GetCurrentCharacter());
+        }
+        private static bool IsExclamationMark()
+        {
+            return "!".Equals(Scanner.GetCurrentCharacter());
+        }
         private static bool IsEndOfLine()
         {
             return "@FL@".Equals(Scanner.GetCurrentCharacter());

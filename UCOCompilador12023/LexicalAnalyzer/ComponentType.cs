@@ -8,6 +8,6 @@ namespace UCOCompilador12023.LexicalAnalyzer
 {
     public enum ComponentType
     {
-        NORMAL,DUMMY
+        NORMAL,DUMMY, LITERAL, PALABRA_RESERVADA
     }
 }
