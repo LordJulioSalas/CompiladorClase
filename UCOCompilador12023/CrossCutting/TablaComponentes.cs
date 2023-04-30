@@ -10,25 +10,23 @@ namespace UCOCompilador12023.CrossCutting
 {
     public class TablaComponentes
     {
+
+        protected Dictionary<string, List<LexicalComponent>> Components = new Dictionary<string, List<LexicalComponent>>();
         public void Initialize()
         {
             Components.Clear();
         }
 
        public Dictionary<string, List<LexicalComponent>> GetComponents()
-        {
-            if (!Componets.ContainsKey(lexeme))
-            {
-                Componets.Add(lexeme, new List<LexicalComponent>());
-            }
-            return Components[lexeme];
+       {
+            return Components;
        }
 
         public List<LexicalComponent> GetComponent(string lexeme)
         {
-            if (!Componets.ContainsKey(lexeme))
+            if (!Components.ContainsKey(lexeme))
             {
-                Componets.Add(lexeme, new List<LexicalComponent>());
+                Components.Add(lexeme, new List<LexicalComponent>());
             }
             return Components[lexeme];
         }
@@ -43,11 +41,11 @@ namespace UCOCompilador12023.CrossCutting
 
         public List<LexicalComponent> GetComponentsAsList() {
 
-            List<LexicalComponent> returnList = new List<LexicalComponent>;
+            List<LexicalComponent> returnList = new List<LexicalComponent>();
 
-            foreach (List<LexicalComponent> list in Componets.Values)
+            foreach (List<LexicalComponent> list in Components.Values)
             {
-                returnList = AddRange(list);
+                returnList.AddRange(list);
             }
             return returnList;
         }

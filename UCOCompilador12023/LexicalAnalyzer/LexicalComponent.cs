@@ -25,12 +25,12 @@ namespace UCOCompilador12023.LexicalAnalyzer
             Type = type;
         }
 
-        public static LexicalComponent CreateNormalComponent(int lineNumber, int initialPosition, int finalPosition, Category category, string lexeme, ComponentType type)
+        public static LexicalComponent CreateNormalComponent(int lineNumber, int initialPosition, int finalPosition, Category category, string lexeme)
         {
             return new LexicalComponent(lineNumber, initialPosition, finalPosition, category, lexeme, ComponentType.NORMAL);
         }
 
-        public static LexicalComponent CreateDummyComponent(int lineNumber, int initialPosition, int finalPosition, Category category, string lexeme, ComponentType type)
+        public static LexicalComponent CreateDummyComponent(int lineNumber, int initialPosition, int finalPosition, Category category, string lexeme)
         {
             return new LexicalComponent(lineNumber, initialPosition, finalPosition, category, lexeme, ComponentType.DUMMY);
         }
@@ -38,7 +38,7 @@ namespace UCOCompilador12023.LexicalAnalyzer
         {
             return new LexicalComponent(lineNumber, initialPosition, finalPosition, category, lexeme, ComponentType.LITERAL);
         }
-        public static LexicalComponent CreatePalabraReservadaComponent(int lineNumber, int initialPosition, int finalPosition, Category category, string lexeme, ComponentType type)
+        public static LexicalComponent CreatePalabraReservadaComponent(int lineNumber, int initialPosition, int finalPosition, Category category, string lexeme)
         {
             return new LexicalComponent(lineNumber, initialPosition, finalPosition, category, lexeme, ComponentType.PALABRA_RESERVADA);
         }
@@ -66,6 +66,11 @@ namespace UCOCompilador12023.LexicalAnalyzer
         public void SetLexeme(string lexeme)
         {
             Lexeme = lexeme;
+        }
+
+        public ComponentType GetType()
+        {
+            return Type;
         }
 
         public int GetLineNumber()

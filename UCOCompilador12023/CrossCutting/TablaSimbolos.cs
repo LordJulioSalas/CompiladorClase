@@ -7,9 +7,9 @@ using UCOCompilador12023.LexicalAnalyzer;
 
 namespace UCOCompilador12023.CrossCutting
 {
-    public  class TablaSimbolos:TablaComponentes
+    public  class TablaSimbolos : TablaComponentes
     {
-        private static TablaComponentes INSTANCE = new TablaComponentes();
+        private static TablaComponentes INSTANCE = new TablaSimbolos();
 
         private TablaSimbolos() 
         {
@@ -29,16 +29,16 @@ namespace UCOCompilador12023.CrossCutting
         public static void Add(LexicalComponent component)
         {
             INSTANCE.Add(component);
-        }
+        }        
 
-        public static  List<LexicalComponent> GetComponetsAsList() 
-        {
-            return INSTANCE.GetComponentsAsList();
-        }
-
-        public static Dictionary<string, List<LexicalComponent>> GetComponets()
+        public static Dictionary<string, List<LexicalComponent>> GetComponents()
         {
             return INSTANCE.GetComponents();
+        }
+
+        public static List<LexicalComponent> GetComponentsAsList()
+        {
+            return INSTANCE.GetComponentsAsList();
         }
     }
 }

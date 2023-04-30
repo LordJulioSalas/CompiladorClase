@@ -7,9 +7,9 @@ using UCOCompilador12023.LexicalAnalyzer;
 
 namespace UCOCompilador12023.CrossCutting
 {
-    public class TablaPalabrasReservadas
+    public class TablaPalabrasReservadas : TablaComponentes
     {
-        private static TablaComponentes INSTANCE = new TablaComponentes();
+        private static TablaComponentes INSTANCE = new TablaPalabrasReservadas();
         private static Dictionary<string, Category> PALABRAS_RESERVADAS = new Dictionary<string, Category>();
         
         static TablaPalabrasReservadas()
@@ -35,16 +35,12 @@ namespace UCOCompilador12023.CrossCutting
         {
             if (component != null && PALABRAS_RESERVADAS.ContainsKey(component.GetLexeme()))
             {
-                return LexicalComponent.CreatePalabraReservadaComponent(component.GetLineNumber(), component.GetInitialPosition, component.GetFinalPosition, PALABRAS_RESERVADAS[component.GetLexeme()], component.GetLexeme());
+                return LexicalComponent.CreatePalabraReservadaComponent(component.GetLineNumber(),component.GetInitialPosition(), component.GetFinalPosition(), PALABRAS_RESERVADAS[component.GetLexeme()], component.GetLexeme());
             }
             else
             {
                 return component;
             }
-        }
-        public override void Add(LexicalComponent component)
-        {
-
         }
 
         public static void Inicializar()
