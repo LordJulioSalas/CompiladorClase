@@ -25,14 +25,22 @@ namespace UCOCompilador12023.LexicalAnalyzer
             Type = type;
         }
 
-        public static LexicalComponent CreateNormalComponent(int lineNumber, int initialPosition, int finalPosition, Category category, string lexeme, ComponentType type)
+        public static LexicalComponent CreateNormalComponent(int lineNumber, int initialPosition, int finalPosition, Category category, string lexeme)
         {
             return new LexicalComponent(lineNumber, initialPosition, finalPosition, category, lexeme, ComponentType.NORMAL);
         }
 
-        public static LexicalComponent CreateDummyComponent(int lineNumber, int initialPosition, int finalPosition, Category category, string lexeme, ComponentType type)
+        public static LexicalComponent CreateDummyComponent(int lineNumber, int initialPosition, int finalPosition, Category category, string lexeme)
         {
             return new LexicalComponent(lineNumber, initialPosition, finalPosition, category, lexeme, ComponentType.DUMMY);
+        }
+        public static LexicalComponent CreateLiteralComponent(int lineNumber, int initialPosition, int finalPosition, Category category, string lexeme, ComponentType type)
+        {
+            return new LexicalComponent(lineNumber, initialPosition, finalPosition, category, lexeme, ComponentType.LITERAL);
+        }
+        public static LexicalComponent CreatePalabraReservadaComponent(int lineNumber, int initialPosition, int finalPosition, Category category, string lexeme)
+        {
+            return new LexicalComponent(lineNumber, initialPosition, finalPosition, category, lexeme, ComponentType.PALABRA_RESERVADA);
         }
 
         public static LexicalComponent CreatePalabraReservadaComponent(int lineNumber, int initialPosition, int finalPosition, Category category, string lexeme, ComponentType type)
@@ -67,6 +75,11 @@ namespace UCOCompilador12023.LexicalAnalyzer
         public void SetLexeme(string lexeme)
         {
             Lexeme = lexeme;
+        }
+
+        public ComponentType GetType()
+        {
+            return Type;
         }
 
         public int GetLineNumber()

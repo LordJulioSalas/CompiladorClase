@@ -8,6 +8,6 @@ namespace UCOCompilador12023.ErrorManager
 {
     public enum ErrorLevel
     {
-        SINTACTICO,SEMANTICO,LEXICO
+        LEXICO, SEMANTICO, SINTACTICO
     }
 }
