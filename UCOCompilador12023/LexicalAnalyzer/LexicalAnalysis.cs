@@ -534,7 +534,7 @@ namespace UCOCompilador12023.LexicalAnalyzer
                 int finalPosition = Scanner.GetCurrentIndex() - 1;
                 error = Error.CreateStopperLexicalError(lineNumber, initialPosition, finalPosition, fail, cause, solution, expecteCategory, lexeme);
 
-                ErrorManagment.Agregar(error);
+                ErrorManagement.Agregar(error);
                 throw new Exception("Se ha presentado un error tipo STOPPER durante el análisis lexico. No es posible continuar con el proceso de compílación gasta que el error haya solucionado. Por favor verifique la consola de errores para tener más detalles del problema que se ha presentado....");
             }
             else if (ErrorType.CONTROLABLE.Equals(errorType))
@@ -543,7 +543,7 @@ namespace UCOCompilador12023.LexicalAnalyzer
                 int finalPosition = Scanner.GetCurrentIndex() - 1;
 
                 error = Error.CreateStopperLexicalError(lineNumber, initialPosition, finalPosition, fail, cause, solution, expecteCategory, lexeme);
-                ErrorManagment.Agregar(error);
+                ErrorManagement.Agregar(error);
             }
 
             
