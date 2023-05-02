@@ -164,6 +164,48 @@ namespace UCOCompilador12023.LexicalAnalyzer
                 {
                     ProcessState26();
                 }
+                if (INSTANCE.CurrentState == 27)
+                {
+                    ProcessState27();
+                }
+                if (INSTANCE.CurrentState == 28)
+                {
+                    ProcessState28();
+                }
+                if (INSTANCE.CurrentState == 29)
+                {
+                    ProcessState29();
+                }
+                if (INSTANCE.CurrentState == 30)
+                {
+                    ProcessState30();
+                }
+                if (INSTANCE.CurrentState == 31)
+                {
+                    ProcessState31();
+                }
+                if (INSTANCE.CurrentState == 32)
+                {
+                    ProcessState32();
+                }
+                if (INSTANCE.CurrentState == 33)
+                {
+                    ProcessState33();
+                }
+                if (INSTANCE.CurrentState == 34)
+                {
+                    ProcessState34();
+                }
+                if (INSTANCE.CurrentState == 35)
+                {
+                    ProcessState35();
+                }
+                if (INSTANCE.CurrentState == 36)
+                {
+                    ProcessState36();
+                }
+                
+
             }
 
             return INSTANCE.Component;
@@ -484,6 +526,88 @@ namespace UCOCompilador12023.LexicalAnalyzer
 
             CreateComponent(category, type);
         }
+        private static void ProcessState27()
+        {
+            CreateComponentReturningIndex(Category.MAYOR_QUE, ComponentType.NORMAL);
+        }
+        private static void ProcessState28()
+        {
+            CreateComponentWithouReturnIndex(Category.ASIGNACION, ComponentType.NORMAL);
+        }
+        private static void ProcessState29()
+        {
+            Concanate("0");
+            CreateComponentReturningIndex(Category.ASIGNACION, ComponentType.NORMAL);
+        }
+        private static void ProcessState30()
+        {
+            Scanner.ReadNextCharacter();
+            if (IsEqualTo("="))
+            {
+                Concanate();
+                INSTANCE.CurrentState = 31;
+            }
+            else
+            {
+                INSTANCE.CurrentState = 32;
+            }
+        }
+        private static void ProcessState31()
+        {
+            CreateComponentWithouReturnIndex(Category.DIFERENTE_QUE, ComponentType.NORMAL);
+        }
+        private static void ProcessState32()
+        {
+            Concanate("0");
+            CreateComponentReturningIndex(Category.ASIGNACION, ComponentType.NORMAL);
+        }
+        private static void ProcessState33()
+        {
+            CreateComponentReturningIndex(Category.DIVISION, ComponentType.NORMAL);
+        }
+        private static void ProcessState34()
+        {
+            Scanner.ReadNextCharacter();
+            if (IsMultiplication())
+            {
+                Concanate();
+                INSTANCE.CurrentState = 34;
+            }
+            else
+            {
+                INSTANCE.CurrentState = 35;
+            }
+        }
+        private static void ProcessState35()
+        {
+            Scanner.ReadNextCharacter();
+            if (IsMultiplication())
+            {
+                Concanate();
+                INSTANCE.CurrentState = 35;
+            }
+            else if(IsMultiplication () || IsSlash())
+            {
+                INSTANCE.CurrentState = 34;
+            }
+        }
+        private static void ProcessState36()
+        {
+
+            Scanner.ReadNextCharacter();
+            if (IsEndOfLine()) 
+            { 
+                Concanate ();
+                INSTANCE.CurrentState = 13;
+            }
+            else
+            {
+                INSTANCE.CurrentState = 36;
+            }
+        }
+
+
+
 
         private static bool IsLetter()
         {
