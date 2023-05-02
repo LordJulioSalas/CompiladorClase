@@ -421,19 +421,10 @@ namespace UCOCompilador12023.LexicalAnalyzer
         }
         private static void ProcessState17()
         {
-<<<<<<< HEAD
             string fail = "Numero decimal no valido...";
             string cause = "Se ha recibido un caracter que no corresponde a un digito...";
             string solution = "Asegurese de que despues del separador decimal, continue un digito...";
             CreateLexicalEror(ErrorType.CONTROLABLE, fail, cause, solution, Category.DECIMAL, INSTANCE.Lexeme + Scanner.GetCurrentCharacter());
-=======
-            
-            CreateComponentReturningIndex(Category.DECIMAL, ComponentType.DUMMY);
-            string fail = "Numero decimal no valido";
-            string cause = "Se ha recibido un caracter que no corresponde a un digito...";
-            string solution = "Asegurese de que luego del separador decimal continue un digito..";
-            CreateLexicalError(ErrorType.CONTROLABLE, fail, cause, solution, Category.DECIMAL, INSTANCE.Lexeme + Scanner.GetCurrentCharacter());
->>>>>>> 3dde953e76a02c0ab1029323b45a906baa18c04b
             Concanate("0");
 
             CreateComponentReturningIndex(Category.DECIMAL, ComponentType.DUMMY);
@@ -442,20 +433,10 @@ namespace UCOCompilador12023.LexicalAnalyzer
 
         private static void ProcessState18()
         {
-<<<<<<< HEAD
             string fail = "Componente lexico no valido...";
             string cause = "Se ha recibido un simbolo desconocido por el lenguaje...";
             string solution = "Asegurese de que solo existan simbolos aceptados por el lenguaje...";
             CreateLexicalEror(ErrorType.STOPPER, fail, cause, solution, Category.GENERAL, INSTANCE.Lexeme + Scanner.GetCurrentCharacter());
-=======
-
-            CreateComponentReturningIndex(Category.DECIMAL, ComponentType.DUMMY);
-            string fail = "Compnenete lexico no valido";
-            string cause = "Se ha recibido un simbolo desconocido por el lenguaje....";
-            string solution = "Asegurese de que solo existan simbolos aceptados por el lenguaje...";
-            CreateLexicalError(ErrorType.STOPPER, fail, cause, solution, Category.GENERAL, Scanner.GetCurrentCharacter());
-            
->>>>>>> 3dde953e76a02c0ab1029323b45a906baa18c04b
         }
 
         private static void ProcessState19()
