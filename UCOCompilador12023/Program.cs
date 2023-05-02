@@ -16,7 +16,7 @@ namespace UCOCompilador12023
         {
             // Precarga de datos
             Cache.AddLine(Line.Create(1, "123 456           678,8"));
-            Cache.AddLine(Line.Create(2, "       ?  678  "));
+            Cache.AddLine(Line.Create(2, "?         678  "));
             Cache.AddLine(Line.Create(3, ""));
             Cache.AddLine(Line.Create(4, "4"));
 
@@ -33,16 +33,13 @@ namespace UCOCompilador12023
                     component = LexicalAnalysis.Analyze();
                 }
             }
-            catch (Exception exception)
-            {
-
-                Console.WriteLine("¡¡¡¡¡ERROR DE COMPILACIÓN!!!!!!");
+            catch (Exception exception) {
+                Console.WriteLine("¡¡¡¡¡ERROR DE COMPILACION!!!!!");
                 Console.WriteLine(exception.Message);
             }
-
-            if (ErrorManagment.HayErrores())
+            if (ErrorManagement.HayErrores())
             {
-                foreach(Error error in ErrorManagment.GetErrors(ErrorLevel.LEXICO))
+                foreach(Error error in ErrorManagement.GetErrors(ErrorLevel.LEXICO))
                 {
                     Console.WriteLine(error.ToString());
                     Console.WriteLine("___________________________________________________________");
@@ -51,7 +48,6 @@ namespace UCOCompilador12023
 
             
             Console.ReadKey();
-
         }
     }
 }

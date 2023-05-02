@@ -43,6 +43,15 @@ namespace UCOCompilador12023.LexicalAnalyzer
             return new LexicalComponent(lineNumber, initialPosition, finalPosition, category, lexeme, ComponentType.PALABRA_RESERVADA);
         }
 
+        public static LexicalComponent CreatePalabraReservadaComponent(int lineNumber, int initialPosition, int finalPosition, Category category, string lexeme, ComponentType type)
+        {
+            return new LexicalComponent(lineNumber, initialPosition, finalPosition, category, lexeme, ComponentType.DUMMY);
+        }
+        public static LexicalComponent CreateLiteralComponent(int lineNumber, int initialPosition, int finalPosition, Category category, string lexeme, ComponentType type)
+        {
+            return new LexicalComponent(lineNumber, initialPosition, finalPosition, category, lexeme, ComponentType.DUMMY);
+        }
+
         public void SetLineNumber(int lineNumber)
         {
             LineNumber = lineNumber;

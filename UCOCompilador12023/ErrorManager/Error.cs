@@ -46,16 +46,16 @@ namespace UCOCompilador12023.ErrorManager
         public string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("Numero de linea: ").Append(Category).Append("\n");
-            sb.Append("Posicion inicial: ").Append(Lexeme).Append("\n");
-            sb.Append("Posicion final: ").Append(LineNumber).Append("\n");
-            sb.Append("Fallo: ").Append(InitialPosition).Append("\n");
-            sb.Append("Causa: ").Append(FinalPosition).Append("\n");
-            sb.Append("Solucion: ").Append(FinalPosition).Append("\n");
-            sb.Append("Nivel: ").Append(FinalPosition).Append("\n");
-            sb.Append("Tipo: ").Append(FinalPosition).Append("\n");
-            sb.Append("Categoria: ").Append(FinalPosition).Append("\n");
-            sb.Append("Lexema: ").Append(FinalPosition).Append("\n");
+            sb.Append("Numero de linea: ").Append(LineNumber).Append("\n");
+            sb.Append("Posicion inicial: ").Append(InitialPosition).Append("\n");
+            sb.Append("Posicion final: ").Append(FinalPosition).Append("\n");
+            sb.Append("Fallo: ").Append(Fail).Append("\n");
+            sb.Append("Causa: ").Append(Cause).Append("\n");
+            sb.Append("Solucion: ").Append(Solution).Append("\n");
+            sb.Append("Nivel: ").Append(Level).Append("\n");
+            sb.Append("Tipo: ").Append(Type).Append("\n");
+            sb.Append("Categoria: ").Append(Category).Append("\n");
+            sb.Append("Lexema: ").Append(Lexeme).Append("\n");
 
             return sb.ToString();
         }
