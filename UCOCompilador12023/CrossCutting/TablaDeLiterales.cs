@@ -7,7 +7,7 @@ using UCOCompilador12023.LexicalAnalyzer;
 
 namespace UCOCompilador12023.CrossCutting
 {
-    internal class TablaDeLiterales : TablaComponentes
+    public class TablaDeLiterales : TablaComponentes
     {
         private static TablaComponentes INSTANCE = new TablaComponentes();
 
