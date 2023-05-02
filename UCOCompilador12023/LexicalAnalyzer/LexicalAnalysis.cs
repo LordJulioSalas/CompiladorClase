@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UCOCompilador12023.DataCache;
+using UCOCompilador12023.ErrorManager;
 
 namespace UCOCompilador12023.LexicalAnalyzer
 {
@@ -378,13 +379,21 @@ namespace UCOCompilador12023.LexicalAnalyzer
         }
         private static void ProcessState17()
         {
+            string fail = "Numero decimal no valido...";
+            string cause = "Se ha recibido un caracter que no corresponde a un digito...";
+            string solution = "Asegurese de que despues del separador decimal, continue un digito...";
+            CreateLexicalEror(ErrorType.CONTROLABLE, fail, cause, solution, Category.DECIMAL, INSTANCE.Lexeme + Scanner.GetCurrentCharacter());
             Concanate("0");
             CreateComponentReturningIndex(Category.DECIMAL, ComponentType.DUMMY);
+
         }
 
         private static void ProcessState18()
         {
-            //Error;
+            string fail = "Componente lexico no valido...";
+            string cause = "Se ha recibido un simbolo desconocido por el lenguaje...";
+            string solution = "Asegurese de que solo existan simbolos aceptados por el lenguaje...";
+            CreateLexicalEror(ErrorType.STOPPER, fail, cause, solution, Category.GENERAL, INSTANCE.Lexeme + Scanner.GetCurrentCharacter());
         }
 
         private static void ProcessState19()
@@ -485,6 +494,28 @@ namespace UCOCompilador12023.LexicalAnalyzer
             CreateComponent(category, type);
         }
 
+        private static void CreateLexicalEror(ErrorType errorType, string fail,string cause, string solution, Category expectedCategory, string lexeme) {
+            int lineNumber = Scanner.GetCurrentNumberLine();
+
+            if (ErrorType.STOPPER.Equals(errorType))
+            {
+                int initialPosition = Scanner.GetCurrentIndex() - 1;
+                int finalPosition = Scanner.GetCurrentIndex() - 1;
+                Error error = Error.CreateStopperLexicalError(lineNumber, initialPosition, finalPosition, fail, cause, solution, expectedCategory, lexeme);
+                ErrorManagement.Agregar(error);
+                throw new Exception("Se ha presentado un error de tipo STOPPER durante el analisis lexico" +
+                    "No es posible continuar con el proceso de compilacion hasta que el error haya sido " +
+                    "solucionado. Por favor verifique la consola de errores para tender mas detalle del " +
+                    "problema que se ha presentado...");
+
+            }
+            else if (ErrorType.CONTROLABLE.Equals(errorType)) {
+                int initialPosition = Scanner.GetCurrentIndex() - INSTANCE.Lexeme.Length;
+                int finalPosition = Scanner.GetCurrentIndex() - 1;
+                Error error = Error.CreateNotStopperLexicalError(lineNumber, initialPosition, finalPosition, fail, cause, solution, expectedCategory, lexeme);
+                ErrorManagement.Agregar(error);
+            }
+        }
         private static bool IsLetter()
         {
             return Char.IsLetter(Scanner.GetCurrentCharacter().ToCharArray()[0]);

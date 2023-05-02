@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UCOCompilador12023.ErrorManager
+namespace UCOCompilador12023.Crosscutting
 {
-    public enum ErrorLevel
+    public class TablaLiterales:TablaComponentes
     {
-        SINTACTICO,SEMANTICO,LEXICO
     }
 }

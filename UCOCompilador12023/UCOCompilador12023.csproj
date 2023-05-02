@@ -43,9 +43,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Crosscutting\TablaDummies.cs" />
+    <Compile Include="Crosscutting\TablaLiterales.cs" />
+    <Compile Include="Crosscutting\TablaMaestra.cs" />
+    <Compile Include="Crosscutting\TablaPalabrasReservadas.cs" />
+    <Compile Include="Crosscutting\TablaSimbolos.cs" />
+    <Compile Include="Crosscutting\TablaComponentes.cs" />
     <Compile Include="DataCache\Cache.cs" />
     <Compile Include="DataCache\Line.cs" />
     <Compile Include="DataCache\Scanner.cs" />
+    <Compile Include="ErrorManager\ErrorManagement.cs" />
     <Compile Include="ErrorManager\Error.cs" />
     <Compile Include="ErrorManager\ErrorType.cs" />
     <Compile Include="ErrorManager\ErrorLevel.cs" />
