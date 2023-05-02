@@ -53,7 +53,7 @@
     <Compile Include="DataCache\Line.cs" />
     <Compile Include="DataCache\Scanner.cs" />
     <Compile Include="ErrorManager\Error.cs" />
-    <Compile Include="ErrorManager\ErrorManagment.cs" />
+    <Compile Include="ErrorManager\ErrorManagement.cs" />
     <Compile Include="ErrorManager\ErrorType.cs" />
     <Compile Include="ErrorManager\ErrorLevel.cs" />
     <Compile Include="LexicalAnalyzer\Category.cs" />

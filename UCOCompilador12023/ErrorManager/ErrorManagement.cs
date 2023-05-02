@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace UCOCompilador12023.ErrorManager
 {
-    public class ErrorManagment
+    public class ErrorManagement
     {
         private static Dictionary<ErrorLevel, List<Error>> ErrorMap = new Dictionary<ErrorLevel, List<Error>>();
         private static Boolean IsInitialized = false;
 
-        static ErrorManagment()
+        static ErrorManagement()
         {
             Inicializar();
         }
