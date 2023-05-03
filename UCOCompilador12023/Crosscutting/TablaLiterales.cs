@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UCOCompilador12023.LexicalAnalyzer
+namespace UCOCompilador12023.Crosscutting
 {
-    public enum ComponentType
+    public class TablaLiterales:TablaComponentes
     {
-        NORMAL,DUMMY,LITERAL,PALABRA_RESERVADA
     }
 }

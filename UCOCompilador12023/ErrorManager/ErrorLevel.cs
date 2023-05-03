@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace UCOCompilador12023.ErrorManager
 {
-    public class ErrorLevel
+    public enum ErrorLevel
     {
+        LEXICO, SEMANTICO, SINTACTICO
     }
 }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UCOCompilador12023.DataCache;
+using UCOCompilador12023.ErrorManager;
 
 namespace UCOCompilador12023.LexicalAnalyzer
 {
@@ -164,6 +165,48 @@ namespace UCOCompilador12023.LexicalAnalyzer
                 {
                     ProcessState26();
                 }
+                if (INSTANCE.CurrentState == 27)
+                {
+                    ProcessState27();
+                }
+                if (INSTANCE.CurrentState == 28)
+                {
+                    ProcessState28();
+                }
+                if (INSTANCE.CurrentState == 29)
+                {
+                    ProcessState29();
+                }
+                if (INSTANCE.CurrentState == 30)
+                {
+                    ProcessState30();
+                }
+                if (INSTANCE.CurrentState == 31)
+                {
+                    ProcessState31();
+                }
+                if (INSTANCE.CurrentState == 32)
+                {
+                    ProcessState32();
+                }
+                if (INSTANCE.CurrentState == 33)
+                {
+                    ProcessState33();
+                }
+                if (INSTANCE.CurrentState == 34)
+                {
+                    ProcessState34();
+                }
+                if (INSTANCE.CurrentState == 35)
+                {
+                    ProcessState35();
+                }
+                if (INSTANCE.CurrentState == 36)
+                {
+                    ProcessState36();
+                }
+                
+
             }
 
             return INSTANCE.Component;
@@ -378,13 +421,22 @@ namespace UCOCompilador12023.LexicalAnalyzer
         }
         private static void ProcessState17()
         {
+            string fail = "Numero decimal no valido...";
+            string cause = "Se ha recibido un caracter que no corresponde a un digito...";
+            string solution = "Asegurese de que despues del separador decimal, continue un digito...";
+            CreateLexicalEror(ErrorType.CONTROLABLE, fail, cause, solution, Category.DECIMAL, INSTANCE.Lexeme + Scanner.GetCurrentCharacter());
             Concanate("0");
+
             CreateComponentReturningIndex(Category.DECIMAL, ComponentType.DUMMY);
+
         }
 
         private static void ProcessState18()
         {
-            //Error;
+            string fail = "Componente lexico no valido...";
+            string cause = "Se ha recibido un simbolo desconocido por el lenguaje...";
+            string solution = "Asegurese de que solo existan simbolos aceptados por el lenguaje...";
+            CreateLexicalEror(ErrorType.STOPPER, fail, cause, solution, Category.GENERAL, INSTANCE.Lexeme + Scanner.GetCurrentCharacter());
         }
 
         private static void ProcessState19()
@@ -462,12 +514,39 @@ namespace UCOCompilador12023.LexicalAnalyzer
 
             if (ComponentType.NORMAL.Equals(type))
             {
-                INSTANCE.Component = LexicalComponent.CreateNormalComponent(lineNumber, initialPosition, finalPosition, category, INSTANCE.Lexeme, ComponentType.NORMAL);
+                INSTANCE.Component = LexicalComponent.CreateNormalComponent(lineNumber, initialPosition, finalPosition, category, INSTANCE.Lexeme);
             }
             else if (ComponentType.DUMMY.Equals(type))
             {
-                INSTANCE.Component = LexicalComponent.CreateDummyComponent(lineNumber, initialPosition, finalPosition, category, INSTANCE.Lexeme, ComponentType.DUMMY);
+                INSTANCE.Component = LexicalComponent.CreateDummyComponent(lineNumber, initialPosition, finalPosition, category, INSTANCE.Lexeme);
             }
+        }
+
+        private static void CreateLexicalError(ErrorType errorType, string fail, string cause, string solution, Category expecteCategory, string lexeme)
+        {
+            int lineNumber = Scanner.GetCurrentNumberLine();
+            
+            Error error;
+
+            if (ErrorType.STOPPER.Equals(errorType))
+            {
+                int initialPosition = Scanner.GetCurrentIndex() - 1;
+                int finalPosition = Scanner.GetCurrentIndex() - 1;
+                error = Error.CreateStopperLexicalError(lineNumber, initialPosition, finalPosition, fail, cause, solution, expecteCategory, lexeme);
+
+                ErrorManagement.Agregar(error);
+                throw new Exception("Se ha presentado un error tipo STOPPER durante el análisis lexico. No es posible continuar con el proceso de compílación gasta que el error haya solucionado. Por favor verifique la consola de errores para tener más detalles del problema que se ha presentado....");
+            }
+            else if (ErrorType.CONTROLABLE.Equals(errorType))
+            {
+                int initialPosition = Scanner.GetCurrentIndex() - INSTANCE.Lexeme.Length;
+                int finalPosition = Scanner.GetCurrentIndex() - 1;
+
+                error = Error.CreateStopperLexicalError(lineNumber, initialPosition, finalPosition, fail, cause, solution, expecteCategory, lexeme);
+                ErrorManagement.Agregar(error);
+            }
+
+            
         }
 
         private static void CreateComponentWithouReturnIndex(Category category, ComponentType type)
@@ -484,17 +563,119 @@ namespace UCOCompilador12023.LexicalAnalyzer
 
             CreateComponent(category, type);
         }
+        private static void ProcessState27()
+        {
+            CreateComponentReturningIndex(Category.MAYOR_QUE, ComponentType.NORMAL);
+        }
+        private static void ProcessState28()
+        {
+            CreateComponentWithouReturnIndex(Category.ASIGNACION, ComponentType.NORMAL);
+        }
+        private static void ProcessState29()
+        {
+            Concanate("0");
+            CreateComponentReturningIndex(Category.ASIGNACION, ComponentType.NORMAL);
+        }
+        private static void ProcessState30()
+        {
+            Scanner.ReadNextCharacter();
+            if (IsEqualTo("="))
+            {
+                Concanate();
+                INSTANCE.CurrentState = 31;
+            }
+            else
+            {
+                INSTANCE.CurrentState = 32;
+            }
+        }
+        private static void ProcessState31()
+        {
+            CreateComponentWithouReturnIndex(Category.DIFERENTE_QUE, ComponentType.NORMAL);
+        }
+        private static void ProcessState32()
+        {
+            Concanate("0");
+            CreateComponentReturningIndex(Category.ASIGNACION, ComponentType.NORMAL);
+        }
+        private static void ProcessState33()
+        {
+            CreateComponentReturningIndex(Category.DIVISION, ComponentType.NORMAL);
+        }
+        private static void ProcessState34()
+        {
+            Scanner.ReadNextCharacter();
+            if (IsMultiplication())
+            {
+                Concanate();
+                INSTANCE.CurrentState = 34;
+            }
+            else
+            {
+                INSTANCE.CurrentState = 35;
+            }
+        }
+        private static void ProcessState35()
+        {
+            Scanner.ReadNextCharacter();
+            if (IsMultiplication())
+            {
+                Concanate();
+                INSTANCE.CurrentState = 35;
+            }
+            else if(IsMultiplication () || IsSlash())
+            {
+                INSTANCE.CurrentState = 34;
+            }
+        }
+        private static void ProcessState36()
+        {
 
+            Scanner.ReadNextCharacter();
+            if (IsEndOfLine()) 
+            { 
+                Concanate ();
+                INSTANCE.CurrentState = 13;
+            }
+            else
+            {
+                INSTANCE.CurrentState = 36;
+            }
+        }
+
+
+
+
+        private static void CreateLexicalEror(ErrorType errorType, string fail,string cause, string solution, Category expectedCategory, string lexeme) {
+            int lineNumber = Scanner.GetCurrentNumberLine();
+
+            if (ErrorType.STOPPER.Equals(errorType))
+            {
+                int initialPosition = Scanner.GetCurrentIndex() - 1;
+                int finalPosition = Scanner.GetCurrentIndex() - 1;
+                Error error = Error.CreateStopperLexicalError(lineNumber, initialPosition, finalPosition, fail, cause, solution, expectedCategory, lexeme);
+                ErrorManagement.Agregar(error);
+                throw new Exception("Se ha presentado un error de tipo STOPPER durante el analisis lexico" +
+                    "No es posible continuar con el proceso de compilacion hasta que el error haya sido " +
+                    "solucionado. Por favor verifique la consola de errores para tender mas detalle del " +
+                    "problema que se ha presentado...");
+
+            }
+            else if (ErrorType.CONTROLABLE.Equals(errorType)) {
+                int initialPosition = Scanner.GetCurrentIndex() - INSTANCE.Lexeme.Length;
+                int finalPosition = Scanner.GetCurrentIndex() - 1;
+                Error error = Error.CreateNotStopperLexicalError(lineNumber, initialPosition, finalPosition, fail, cause, solution, expectedCategory, lexeme);
+                ErrorManagement.Agregar(error);
+            }
+        }
         private static bool IsLetter()
         {
             return Char.IsLetter(Scanner.GetCurrentCharacter().ToCharArray()[0]);
         }
-
         private static bool IsDigit()
         {
             return Char.IsDigit(Scanner.GetCurrentCharacter().ToCharArray()[0]);
         }
-
         private static bool IsCurrency()
         {
             return "$".Equals(Scanner.GetCurrentCharacter());

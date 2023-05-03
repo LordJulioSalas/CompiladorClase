@@ -10,16 +10,16 @@ namespace UCOCompilador12023.ErrorManager
 {
     public class Error
     {
-        public int LineNumber { get => LineNumber; set => LineNumber = value; }
-        public int InitialPosition { get => InitialPosition; set => InitialPosition = value; }
-        public int FinalPosition { get => FinalPosition; set => FinalPosition = value; }
-        public string Fail { get => Fail; set => Fail = value; }
-        public string Cause { get => Cause; set => Cause = value; }
-        public string Solution { get => Solution; set => Solution = value; }
-        public ErrorLevel Level { get => Level; set => Level = value; }
-        public ErrorType Type { get => Type; set => Type = value; }
-        public Category Category { get => Category; set => Category = value; }
-        public string Lexeme { get => Lexeme; set => Lexeme = value; }
+        public int LineNumber { get ; set ; }
+        public int InitialPosition { get; set; }
+        public int FinalPosition { get; set; }
+        public string Fail { get; set; }
+        public string Cause { get; set; }
+        public string Solution { get; set; }
+        public ErrorLevel Level { get; set; }
+        public ErrorType Type { get; set; }
+        public Category Category { get; set; }
+        public string Lexeme { get; set; }
 
         public Error(int lineNumber, int initialPosition, int finalPosition, string fail, string cause, string solution, ErrorLevel level, ErrorType type, Category category, string lexeme)
         {
@@ -34,28 +34,28 @@ namespace UCOCompilador12023.ErrorManager
             Category = category;
             Lexeme = lexeme;
         }
-        public Error CreateStopperLexicalError(int lineNumber, int initialPosition, int finalPosition, string fail, string cause, string solution, ErrorLevel level, Category category, string lexeme)
+        public static Error CreateStopperLexicalError(int lineNumber, int initialPosition, int finalPosition, string fail, string cause, string solution, Category category, string lexeme)
         {
-            return new Error(lineNumber,initialPosition,finalPosition, fail, cause, solution, level,ErrorType.STOPPER, category, lexeme);
+            return new Error(lineNumber,initialPosition,finalPosition, fail, cause, solution, ErrorLevel.LEXICO, ErrorType.STOPPER, category, lexeme);
         }
-        public Error CreateNotStopperLexicalError(int lineNumber, int initialPosition, int finalPosition, string fail, string cause, string solution, ErrorLevel level, ErrorType type, Category category, string lexeme)
+        public static Error CreateNotStopperLexicalError(int lineNumber, int initialPosition, int finalPosition, string fail, string cause, string solution, Category category, string lexeme)
         {
-            return new Error(lineNumber, initialPosition, finalPosition, fail, cause, solution, level, ErrorType.CONTROLABLE, category, lexeme);
+            return new Error(lineNumber, initialPosition, finalPosition, fail, cause, solution, ErrorLevel.LEXICO, ErrorType.CONTROLABLE, category, lexeme);
         }
 
         public string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("Numero de linea: ").Append(Category).Append("\n");
-            sb.Append("Posicion inicial: ").Append(Lexeme).Append("\n");
-            sb.Append("Posicion final: ").Append(LineNumber).Append("\n");
-            sb.Append("Fallo: ").Append(InitialPosition).Append("\n");
-            sb.Append("Causa: ").Append(FinalPosition).Append("\n");
-            sb.Append("Solucion: ").Append(FinalPosition).Append("\n");
-            sb.Append("Nivel: ").Append(FinalPosition).Append("\n");
-            sb.Append("Tipo: ").Append(FinalPosition).Append("\n");
-            sb.Append("Categoria: ").Append(FinalPosition).Append("\n");
-            sb.Append("Lexema: ").Append(FinalPosition).Append("\n");
+            sb.Append("Numero de linea: ").Append(LineNumber).Append("\n");
+            sb.Append("Posicion inicial: ").Append(InitialPosition).Append("\n");
+            sb.Append("Posicion final: ").Append(FinalPosition).Append("\n");
+            sb.Append("Fallo: ").Append(Fail).Append("\n");
+            sb.Append("Causa: ").Append(Cause).Append("\n");
+            sb.Append("Solucion: ").Append(Solution).Append("\n");
+            sb.Append("Nivel: ").Append(Level).Append("\n");
+            sb.Append("Tipo: ").Append(Type).Append("\n");
+            sb.Append("Categoria: ").Append(Category).Append("\n");
+            sb.Append("Lexema: ").Append(Lexeme).Append("\n");
 
             return sb.ToString();
         }
