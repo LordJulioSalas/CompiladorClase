@@ -13,7 +13,7 @@ namespace UCOCompilador12023.LexicalAnalyzer
         private int FinalPosition;
         private Category Category;
         private string Lexeme;
-        private ComponentType Type { get; set; }
+        public ComponentType Type { get; set; }
 
         public LexicalComponent(int lineNumber, int initialPosition, int finalPosition, Category category, string lexeme, ComponentType type)
         {
@@ -47,10 +47,7 @@ namespace UCOCompilador12023.LexicalAnalyzer
         {
             return new LexicalComponent(lineNumber, initialPosition, finalPosition, category, lexeme, ComponentType.DUMMY);
         }
-        public static LexicalComponent CreateLiteralComponent(int lineNumber, int initialPosition, int finalPosition, Category category, string lexeme, ComponentType type)
-        {
-            return new LexicalComponent(lineNumber, initialPosition, finalPosition, category, lexeme, ComponentType.DUMMY);
-        }
+       
 
         public void SetLineNumber(int lineNumber)
         {
