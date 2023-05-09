@@ -16,7 +16,7 @@ namespace UCOCompilador12023.ErrorManager
             Inicializar();
         }
 
-        private static void Inicializar()
+        public static void Inicializar()
         {
             ErrorMap.Clear();
             ErrorMap.Add(ErrorLevel.LEXICO, new List<Error>());

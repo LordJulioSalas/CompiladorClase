@@ -11,7 +11,7 @@ namespace UCOCompilador12023.CrossCutting
     {
         private static Dictionary<ComponentType, TablaComponentes> TABLAS = new Dictionary<ComponentType, TablaComponentes>(); 
 
-        private TablaMaestra()
+        static TablaMaestra()
         {
             TABLAS.Add(ComponentType.NORMAL, TablaSimbolos.GetTablaSimbolos());
             TABLAS.Add(ComponentType.DUMMY, TablaDeDummies.GetTablaDummies());
